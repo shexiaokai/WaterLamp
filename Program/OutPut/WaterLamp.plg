@@ -1,0 +1,26 @@
+<html>
+<body>
+<pre>
+<h1>礦ision3 Build Log</h1>
+<h2>Project:</h2>
+E:\Project\STC51\汇编\花样流水灯\WaterLamp\Program\WaterLamp.uv2
+Project File Date:  01/31/2018
+
+<h2>Output:</h2>
+创建目标 'WaterLamp'
+连接 ...
+Program Size: data=8.0 xdata=0 code=28
+创建 HEX 文件 ".\OutPut\WaterLamp" ...
+".\OutPut\WaterLamp" - 0 个错误, 0 个警告。
+创建目标 'WaterLamp'
+PA51汇编 Main.asm ...
+连接 ...
+Program Size: data=8.0 xdata=0 code=28
+创建 HEX 文件 ".\OutPut\WaterLamp" ...
+".\OutPut\WaterLamp" - 0 个错误, 0 个警告。
+创建目标 'WaterLamp'
+PA51汇编 Main.asm ...
+连接 ...
+Program Size: data=8.0 xdata=0 code=28
+创建 HEX 文件 ".\OutPut\WaterLamp" ...
+".\OutPut\WaterLamp" - 0 个错误, 0 个警告。
