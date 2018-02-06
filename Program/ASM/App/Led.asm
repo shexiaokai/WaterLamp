@@ -1,0 +1,24 @@
+LED:
+
+		MOV		A	,	MODE
+		
+MODE1:	
+		CJNE	A	,	#01H	,	MODE2	;如果为模式1
+		
+		
+		SJMP	LEDRETURN
+MODE2:	
+		CJNE	A	,	#02H	,	MODE3	;如果为模式2
+		CLR		RS0					;设置第1工作区;
+		SETB	RS1
+		SJMP	LEDRETURN
+MODE3:	
+		CJNE	A	,	#04H	,	LEDRETURN	;
+		SETB	RS0					;设置第2工作区;
+		CLR		RS1
+		SJMP	LEDRETURN
+		
+LEDRETURN:
+		RET
+		
+		END

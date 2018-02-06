@@ -1,0 +1,7 @@
+".\OutPut\Main.obj",
+".\OutPut\Delay.obj",
+".\OutPut\Key.obj" 
+TO ".\OutPut\WaterLamp" 
+PRINT(".\WaterLamp.m51") RAMSIZE(256) 
+CODE( 0X0000-0X1FFF )
+XDATA( 0X0000-0X01FD )

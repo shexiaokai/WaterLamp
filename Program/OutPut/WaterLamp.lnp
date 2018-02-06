@@ -1,3 +1,0 @@
-".\OutPut\Main.obj" 
-TO ".\OutPut\WaterLamp" 
-PRINT(".\WaterLamp.m51") RAMSIZE(256) 

@@ -1,0 +1,61 @@
+A51 MACRO ASSEMBLER  DELAY                                                                02/06/2018 17:29:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN .\OutPut\Delay.obj
+ASSEMBLER INVOKED BY: F:\keil3\C51\BIN\A51.EXE User\Delay.asm NOMACRO INCDIR(.\Inc) SET(COMPACT) DEBUG PRINT(.\Delay.lst
+                      ) OBJECT(.\OutPut\Delay.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     PUBLIC  DELAY2MS,DELAY10MS
+                       3     
+                       4     DELAY_ASM       SEGMENT         CODE
+----                   5     RSEG            DELAY_ASM
+                       6     
+0000                   7     DELAY2MS:                       ;@12.000MHz     6T
+0000 C030              8             PUSH 30H
+0002 C031              9             PUSH 31H
+0004 753008           10             MOV 30H,#8
+0007 7531C0           11             MOV 31H,#192
+000A                  12     NEXT:
+000A D531FD           13             DJNZ 31H,NEXT
+000D D530FA           14             DJNZ 30H,NEXT
+0010 D031             15             POP 31H
+0012 D030             16             POP 30H
+0014 22               17             RET
+                      18     
+                      19     
+0015                  20     DELAY10MS:   
+0015 C030             21             PUSH    30H
+0017 C031             22             PUSH    31H
+0019 7531D7           23         MOV         31H     ,       #0D7H
+001C                  24     DL0:
+001C 75302D           25         MOV         30H     ,       #2DH
+001F D530FD           26         DJNZ        30H     ,       $
+0022 D531F7           27         DJNZ        31H     ,       DL0
+0025 D031             28             POP     31H
+0027 D030             29             POP     30H
+0029 22               30         RET
+                      31     
+                      32     END
+A51 MACRO ASSEMBLER  DELAY                                                                02/06/2018 17:29:10 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY10MS. . . . .  C ADDR   0015H   R   SEG=DELAY_ASM
+DELAY2MS . . . . .  C ADDR   0000H   R   SEG=DELAY_ASM
+DELAY_ASM. . . . .  C SEG    002AH       REL=UNIT
+DL0. . . . . . . .  C ADDR   001CH   R   SEG=DELAY_ASM
+NEXT . . . . . . .  C ADDR   000AH   R   SEG=DELAY_ASM
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
