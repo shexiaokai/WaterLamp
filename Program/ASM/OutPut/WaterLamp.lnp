@@ -1,6 +1,8 @@
 ".\OutPut\Main.obj",
 ".\OutPut\Delay.obj",
-".\OutPut\Key.obj" 
+".\OutPut\Time.obj",
+".\OutPut\Key.obj",
+".\OutPut\Led.obj" 
 TO ".\OutPut\WaterLamp" 
 PRINT(".\WaterLamp.m51") RAMSIZE(256) 
 CODE( 0X0000-0X1FFF )

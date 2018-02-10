@@ -1,0 +1,104 @@
+A51 MACRO ASSEMBLER  LED                                                                  02/10/2018 21:06:09 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN .\OutPut\Led.obj
+ASSEMBLER INVOKED BY: F:\keil3\C51\BIN\A51.EXE App\Led.asm NOMACRO INCDIR(.\Inc) SET(COMPACT) DEBUG PRINT(.\Led.lst) OBJ
+                      ECT(.\OutPut\Led.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     ;$include (Main.inc)
+  0030          +1    16     MODE    EQU             30H
+  0031          +1    17     COUNT   EQU             31H
+  0032          +1    18     TOCNT   EQU             32H
+                +1    19     
+  0000          +1    20     MODE2LOR        BIT     00H
+  0001          +1    21     AOD                     BIT             01H
+                      22     
+                      23     LED_ASM         SEGMENT         CODE
+----                  24     RSEG            LED_ASM
+                      25     
+                      26     PUBLIC LED
+                      27     
+                      28     
+                      29     
+                      30     
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+0000                  36     LED:
+0000 E530             37                     MOV             A       ,       MODE
+                      38                     
+0002                  39     MODE1:  
+0002 B40105           40                     CJNE    A       ,       #01H    ,       MODE2           ;如果为模式1
+0005 EB               41                     MOV             A       ,       R3                      
+0006 62A0             42                     XRL             P2      ,       A                                          
+                                  ;当前端口取反 
+0008 8014             43                     SJMP    LEDRETURN
+000A                  44     MODE2:  
+000A B40211           45                     CJNE    A       ,       #02H    ,       LEDRETURN       ;如果为模式2
+000D 200007           46                     JB              MODE2LOR        ,       MOD2R
+0010 EA               47     MOD2l:  MOV             A       ,       R2                                              ;左
+                             移 
+0011 23               48                     RL              A                                                          
+                                  
+0012 FA               49                     MOV             R2      ,       A
+0013 F5A0             50                     MOV             P2      ,       A
+0015 8007             51                     SJMP    LEDRETURN
+0017 EA               52     MOD2R:  MOV             A       ,       R2                                              ;右
+                             移 
+0018 03               53                     RR              A
+A51 MACRO ASSEMBLER  LED                                                                  02/10/2018 21:06:09 PAGE     2
+
+0019 FA               54                     MOV             R2      ,       A               
+001A F5A0             55                     MOV             P2      ,       A
+001C 8000             56                     SJMP    LEDRETURN
+                      57                     
+001E                  58     LEDRETURN:
+001E 22               59                     RET
+                      60                     
+                      61                     END
+A51 MACRO ASSEMBLER  LED                                                                  02/10/2018 21:06:09 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AOD. . . . . . . .  B ADDR   0020H.1 A   
+COUNT. . . . . . .  N NUMB   0031H   A   
+LED. . . . . . . .  C ADDR   0000H   R   SEG=LED_ASM
+LEDRETURN. . . . .  C ADDR   001EH   R   SEG=LED_ASM
+LED_ASM. . . . . .  C SEG    001FH       REL=UNIT
+MOD2L. . . . . . .  C ADDR   0010H   R   SEG=LED_ASM
+MOD2R. . . . . . .  C ADDR   0017H   R   SEG=LED_ASM
+MODE . . . . . . .  N NUMB   0030H   A   
+MODE1. . . . . . .  C ADDR   0002H   R   SEG=LED_ASM
+MODE2. . . . . . .  C ADDR   000AH   R   SEG=LED_ASM
+MODE2LOR . . . . .  B ADDR   0020H.0 A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+TOCNT. . . . . . .  N NUMB   0032H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

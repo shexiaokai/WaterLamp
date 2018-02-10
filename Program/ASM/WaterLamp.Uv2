@@ -10,9 +10,16 @@ Group (Text)
 
 File 1,2,<.\User\Main.asm><Main.asm>
 File 1,2,<.\User\Delay.asm><Delay.asm>
-File 1,2,<.\App\Key.asm><Key.asm>
+File 1,2,<.\User\Time.asm><Time.asm>
+File 2,2,<.\App\Key.asm><Key.asm>
+File 2,2,<.\App\Led.asm><Led.asm>
 File 3,5,<.\Inc\Delay.inc><Delay.inc>
 File 3,5,<.\Inc\Main.inc><Main.inc>
+File 3,5,<.\Inc\Led.inc><Led.inc>
+File 3,5,<.\Inc\Key.inc><Key.inc>
+File 3,5,<.\Inc\Time.inc><Time.inc>
+File 4,5,<.\Text\README.txt><README.txt>
+File 4,5,<.\Text\UODATALOG.txt><UODATALOG.txt>
 
 
 Options 1,0,0  // Target 'WaterLamp'

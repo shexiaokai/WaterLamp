@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  KEY                                                                  02/06/2018 17:29:10 PAGE     1
+A51 MACRO ASSEMBLER  KEY                                                                  02/10/2018 21:06:09 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.00d
@@ -23,87 +23,130 @@ LOC  OBJ            LINE     SOURCE
                       13     
                       14     
                       15     ;$include (MAIN.inc)
-                +1    16     
-                +1    17     
-  0030          +1    18     MODE    EQU             30H
-                      19     
-                      20     ;$include (Delay.inc)
-                +1    21     EXTRN CODE (DELAY10MS)
-                +1    22     EXTRN CODE (DELAY2MS)
-                      23     
-                      24     
-                      25     
+  0030          +1    16     MODE    EQU             30H
+  0031          +1    17     COUNT   EQU             31H
+  0032          +1    18     TOCNT   EQU             32H
+                +1    19     
+  0000          +1    20     MODE2LOR        BIT     00H
+  0001          +1    21     AOD                     BIT             01H
+                      22     
+                      23     ;$include (Delay.inc)
+                +1    24     EXTRN CODE (DELAY10MS)
+                +1    25     EXTRN CODE (DELAY2MS)
                       26     
-                      27     KEY_ASM         SEGMENT         CODE
-----                  28     RSEG            KEY_ASM
-                      29     
-                      30     PUBLIC KEY
+                      27     ;$include (Time.inc)
+                +1    28     EXTRN CODE (TIME_INIT)
+                +1    29     EXTRN CODE (TIME0_INTERRUPT)
+                +1    30     
                       31     
                       32     
                       33     
-                      34     
-                      35     
-                      36     
-                      37     
+                      34     KEY_ASM         SEGMENT         CODE
+----                  35     RSEG            KEY_ASM
+                      36     ;º¯Ê 
+                      37     PUBLIC KEY
                       38     
                       39     
                       40     
                       41     
                       42     
-0000                  43     KEY:
-0000 E590             44                     MOV             A       ,       P1                      
-0002 5407             45                     ANL             A       ,       #07H            ;È¡ºóÈÎ»£»
-0004 6407             46                     XRL             A       ,       #07H            ;È¡·´£»
-0006 6034             47                     JZ              KEY_RETURN                      ;Èç¹ûÃ»ÓÐ°´ÏÂ£¬return£»
-0008 1100     F       48                     ACALL   DELAY10MS                       ;ÑÓÊ±10ºÁÃë£»
-                      49                     
-000A E590             50                     MOV             A       ,       P1                      ;Èç¹û10ºÁÃëºó»¹ÓÐ°´
+                      43     
+                      44     
+                      45     
+                      46     
+                      47     
+                      48     
+0000                  49     KEY:
+0000 E590             50                     MOV             A       ,       P1                      
+0002 5407             51                     ANL             A       ,       #07H            ;È¡ºóÈÎ»£»
+0004 6407             52                     XRL             A       ,       #07H            ;È¡·´£»
+0006 6061             53                     JZ              KEY_RETURN                      ;Èç¹ûÃ»ÓÐ°´ÏÂ£¬return£»
+0008 1100     F       54                     ACALL   DELAY10MS                       ;ÑÓÊ±10ºÁÃë£»
+                      55                     
+000A E590             56                     MOV             A       ,       P1                      ;Èç¹û10ºÁÃëºó»¹ÓÐ°´
                              ¼ü°´ÏÂ£»
-000C 5407             51                     ANL             A       ,       #07H
-000E 6407             52                     XRL             A       ,       #07H 
-0010 602A             53                     JZ              KEY_RETURN                      ;Èç¹ûÃ»ÓÐ°´ÏÂ£¬return£»
-                      54                                                                             ;Èç¹û°´ÏÂ£»
-0012 759000           55                     MOV             P1      ,       #00H
-                      56                             
-A51 MACRO ASSEMBLER  KEY                                                                  02/06/2018 17:29:10 PAGE     2
+A51 MACRO ASSEMBLER  KEY                                                                  02/10/2018 21:06:09 PAGE     2
 
-0015 B53000           57                     CJNE    A       ,       MODE    ,CHANGE_MODE    ;Èç¹û°´¼üºÍµ±Ç°Ä£Ê½²»Ò»Ñù£¬
+000C 5407             57                     ANL             A       ,       #07H
+000E 6407             58                     XRL             A       ,       #07H 
+0010 6057             59                     JZ              KEY_RETURN                      ;Èç¹ûÃ»ÓÐ°´ÏÂ£¬return£»
+                      60                     ;Èç¹û°´ÏÂ£»
+0012 75A000           61                     MOV             P2      ,       #00H            ;°´¼ü°´ÏÂµÄÊ±ºò°ÑµÆÏ¨Ãð 
+0015 C28C             62                     CLR             TR0                                     ;°Ñ¶¨Ê±Æ÷¹Ø±Õ 
+                      63                     ;ÅÐ¶Ï°´ÏÂµÄ°´¼ü         
+0017 B53021           64                     CJNE    A       ,       MODE    ,CHANGE_MODE    ;Èç¹û°´¼üºÍµ±Ç°Ä£Ê½²»Ò»Ñù£¬
                              Ìø×ª 
-                      58                     ;Èç¹û²»¸Ä±äÄ£Ê½£»
-                      59                     
-                      60                     
-0018                  61     CHANGE_MODE:
-0018 F530             62                     MOV             MODE,   A
-                      63                     
-                      64                     
-001A                  65     MODE1:  
-001A B40106           66                     CJNE    A       ,       #01H    ,       MODE2   ;Èç¹ûÎªÄ£Ê½1
-001D C2D3             67                     CLR             RS0                                     ;ÉèÖÃµÚ0¹¤×÷Çø;
-001F C2D4             68                     CLR             RS1
-0021 800F             69                     SJMP    KEYUP
-                      70     
-0023                  71     MODE2:  
-0023 B40206           72                     CJNE    A       ,       #02H    ,       MODE3   ;Èç¹ûÎªÄ£Ê½2
-0026 C2D3             73                     CLR             RS0                                     ;ÉèÖÃµÚ1¹¤×÷Çø;
-0028 D2D4             74                     SETB    RS1
-002A 8006             75                     SJMP    KEYUP
-                      76                     
-002C                  77     MODE3:  
-002C D2D3             78                     SETB    RS0                                     ;ÉèÖÃµÚ2¹¤×÷Çø;
-002E C2D4             79                     CLR             RS1
-0030 8000             80                     SJMP    KEYUP
-                      81                     
-                      82     
-0032                  83     KEYUP:
-0032 E590             84                     MOV             A       ,       P1                      
-0034 5407             85                     ANL             A       ,       #07H            ;È¡ºóÈÎ»£»
-0036 6407             86                     XRL             A       ,       #07H            ;È¡·´£»
-0038 70F8             87                     JNZ             KEYUP                           ;Èç¹û°´¼üËÉ¿ª£¬return£»
-003A 1100     F       88                     ACALL   DELAY10MS
-003C                  89     KEY_RETURN:             
-003C 22               90                     RET     
-                      91     END             
-A51 MACRO ASSEMBLER  KEY                                                                  02/06/2018 17:29:10 PAGE     3
+                      65                     ;Èç¹û²»¸Ä±äÄ£Ê½ 
+001A                  66     SAMEMODE1:      
+001A B40108           67                     CJNE    A       ,       #01H    ,       SAMEMODE2       ;Èç¹ûÎªÄ£Ê½1¸Ä±äÉÁË
+                             ¸µÆÎ»ÖÃ
+001D EB               68                     MOV             A       ,       R3                                         
+                                  ;R3ÎªÉÁË¸µÆÎ»ÖÃ 
+001E 23               69                     RL              A                                                          
+                                  ;ÉÁË¸µÆÎ»ÖÃ×óÒÆ 
+001F FB               70                     MOV             R3      ,       A
+0020 7531FA           71                     MOV             COUNT,  #250                                    ;¼ÆÊÖµÖØÖÃ 
+0023 803A             72                     SJMP    KEYUP                                                   ;ruturn
+0025                  73     SAMEMODE2:      
+0025 B40209           74                     CJNE    A       ,       #02H    ,       SAMEMODE3       ;Èç¹ûÎªÄ£Ê½2
+0028 B200             75                     CPL             MODE2LOR                                                ;¸Ä
+                             ±äÁ÷Ë®µÆ·½Ïò 
+002A 8AA0             76                     MOV             P2      ,       R2                                         
+                                  ;R2¼ÍÂ¼Á÷Ë®µÆ×´Ì¬ 
+002C 7531FA           77                     MOV             COUNT,  #250                                    ;ÖØÖÃ¼ÆÊÖµ 
+002F 802E             78                     SJMP    KEYUP                                                   ;return
+                      79                     
+0031                  80     SAMEMODE3:
+0031 D28C             81                     SETB    TR0                                                             ;¿ª
+                             Æô¶¨Ê±Æ÷ 
+0033 BF1002           82                     CJNE    R7      ,       #10H    ,       INCR5           ;ºôÎüÆµÂÊÉÏÏÞ16 
+0036 7F03             83                     MOV             R7      ,       #03H                                    ;ÏÂ
+                             ÏÞ3 
+0038 0F               84     INCR5:  INC             R7                                                              ;¸Ä
+                             ±äºôÎüÆµÂÊ 
+0039 8024             85                     SJMP    KEYUP                                                   ;return
+                      86     
+                      87     ;Èç¹ûÄ£Ê½¸Ä±ä 
+003B                  88     CHANGE_MODE:
+003B F530             89                     MOV             MODE,   A                                               ;Ä£
+                             Ê½±äÁ¿¸Ä±ä  
+                      90                                     
+003D                  91     MODE1:  
+003D C28C             92                     CLR     TR0
+003F B40107           93                     CJNE    A       ,       #01H    ,       MODE2   ;Èç¹û¸ÄÎªÄ£Ê½1
+0042 8BA0             94                     MOV             P2      ,       R3                                      
+0044 7531FA           95                     MOV             COUNT,  #250
+0047 8016             96                     SJMP    KEYUP
+                      97     
+0049                  98     MODE2:  
+0049 C28C             99                     CLR     TR0
+004B B40207          100                     CJNE    A       ,       #02H    ,       MODE3   ;Èç¹û¸ÄÎªÄ£Ê½2
+004E 8AA0            101                     MOV             P2      ,       R2
+0050 7531FA          102                     MOV             COUNT,  #250
+0053 800A            103                     SJMP    KEYUP
+                     104                                                                                             ;Èç
+                             ¹û¸ÄÎªÄ£Ê½3
+0055                 105     MODE3:  
+0055 D28C            106                     SETB    TR0                                                     ;¿ªÆô¶¨Ê±Æ÷
+                              
+0057 7C14            107                     MOV             R4      ,       #20                                     ;³õ
+                             Ê¼»¯Ê¾Ý 
+0059 7D00            108                     MOV             R5      ,       #0                                      
+005B D28C            109                     SETB    TR0
+A51 MACRO ASSEMBLER  KEY                                                                  02/10/2018 21:06:09 PAGE     3
+
+005D 8000            110                     SJMP    KEYUP
+                     111                     
+005F                 112     KEYUP:
+005F E590            113                     MOV             A       ,       P1                      
+0061 5407            114                     ANL             A       ,       #07H            ;È¡ºóÈÎ»£»
+0063 6407            115                     XRL             A       ,       #07H            ;È¡·´£»
+0065 70F8            116                     JNZ             KEYUP                           ;Èç¹û°´¼üËÉ¿ª£¬return£»
+0067 1100     F      117                     ACALL   DELAY10MS
+0069                 118     KEY_RETURN:             
+0069 22              119                     RET     
+                     120     END             
+A51 MACRO ASSEMBLER  KEY                                                                  02/10/2018 21:06:09 PAGE     4
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -111,20 +154,30 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-CHANGE_MODE. . . .  C ADDR   0018H   R   SEG=KEY_ASM
+AOD. . . . . . . .  B ADDR   0020H.1 A   
+CHANGE_MODE. . . .  C ADDR   003BH   R   SEG=KEY_ASM
+COUNT. . . . . . .  N NUMB   0031H   A   
 DELAY10MS. . . . .  C ADDR   -----       EXT
 DELAY2MS . . . . .  C ADDR   -----       EXT
+INCR5. . . . . . .  C ADDR   0038H   R   SEG=KEY_ASM
 KEY. . . . . . . .  C ADDR   0000H   R   SEG=KEY_ASM
-KEYUP. . . . . . .  C ADDR   0032H   R   SEG=KEY_ASM
-KEY_ASM. . . . . .  C SEG    003DH       REL=UNIT
-KEY_RETURN . . . .  C ADDR   003CH   R   SEG=KEY_ASM
+KEYUP. . . . . . .  C ADDR   005FH   R   SEG=KEY_ASM
+KEY_ASM. . . . . .  C SEG    006AH       REL=UNIT
+KEY_RETURN . . . .  C ADDR   0069H   R   SEG=KEY_ASM
 MODE . . . . . . .  N NUMB   0030H   A   
-MODE1. . . . . . .  C ADDR   001AH   R   SEG=KEY_ASM
-MODE2. . . . . . .  C ADDR   0023H   R   SEG=KEY_ASM
-MODE3. . . . . . .  C ADDR   002CH   R   SEG=KEY_ASM
+MODE1. . . . . . .  C ADDR   003DH   R   SEG=KEY_ASM
+MODE2. . . . . . .  C ADDR   0049H   R   SEG=KEY_ASM
+MODE2LOR . . . . .  B ADDR   0020H.0 A   
+MODE3. . . . . . .  C ADDR   0055H   R   SEG=KEY_ASM
 P1 . . . . . . . .  D ADDR   0090H   A   
-RS0. . . . . . . .  B ADDR   00D0H.3 A   
-RS1. . . . . . . .  B ADDR   00D0H.4 A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+SAMEMODE1. . . . .  C ADDR   001AH   R   SEG=KEY_ASM
+SAMEMODE2. . . . .  C ADDR   0025H   R   SEG=KEY_ASM
+SAMEMODE3. . . . .  C ADDR   0031H   R   SEG=KEY_ASM
+TIME0_INTERRUPT. .  C ADDR   -----       EXT
+TIME_INIT. . . . .  C ADDR   -----       EXT
+TOCNT. . . . . . .  N NUMB   0032H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
 
 
 REGISTER BANK(S) USED: 0 

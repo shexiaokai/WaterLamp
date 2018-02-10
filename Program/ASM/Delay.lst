@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  DELAY                                                                02/06/2018 17:29:10 PAGE     1
+A51 MACRO ASSEMBLER  DELAY                                                                02/10/2018 21:06:08 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.00d
@@ -9,38 +9,53 @@ ASSEMBLER INVOKED BY: F:\keil3\C51\BIN\A51.EXE User\Delay.asm NOMACRO INCDIR(.\I
 LOC  OBJ            LINE     SOURCE
 
                        1     
-                       2     PUBLIC  DELAY2MS,DELAY10MS
+                       2     
                        3     
-                       4     DELAY_ASM       SEGMENT         CODE
-----                   5     RSEG            DELAY_ASM
+                       4     
+                       5     
                        6     
-0000                   7     DELAY2MS:                       ;@12.000MHz     6T
-0000 C030              8             PUSH 30H
-0002 C031              9             PUSH 31H
-0004 753008           10             MOV 30H,#8
-0007 7531C0           11             MOV 31H,#192
-000A                  12     NEXT:
-000A D531FD           13             DJNZ 31H,NEXT
-000D D530FA           14             DJNZ 30H,NEXT
-0010 D031             15             POP 31H
-0012 D030             16             POP 30H
-0014 22               17             RET
-                      18     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     PUBLIC  DELAY2MS,DELAY10MS
+                      16     
+                      17     DELAY_ASM       SEGMENT         CODE
+----                  18     RSEG            DELAY_ASM
                       19     
-0015                  20     DELAY10MS:   
-0015 C030             21             PUSH    30H
-0017 C031             22             PUSH    31H
-0019 7531D7           23         MOV         31H     ,       #0D7H
-001C                  24     DL0:
-001C 75302D           25         MOV         30H     ,       #2DH
-001F D530FD           26         DJNZ        30H     ,       $
-0022 D531F7           27         DJNZ        31H     ,       DL0
-0025 D031             28             POP     31H
-0027 D030             29             POP     30H
-0029 22               30         RET
-                      31     
-                      32     END
-A51 MACRO ASSEMBLER  DELAY                                                                02/06/2018 17:29:10 PAGE     2
+                      20     
+                      21     ;延时2ms
+0000                  22     DELAY2MS:                       ;@12.000MHz     6T
+0000 C030             23             PUSH    30H
+0002 C031             24             PUSH    31H
+0004 753008           25             MOV     30H     ,       #8
+0007 7531C0           26             MOV     31H     ,       #192
+000A                  27     NEXT:
+000A D531FD           28             DJNZ    31H     ,       NEXT
+000D D530FA           29             DJNZ    30H     ,       NEXT
+0010 D031             30             POP     31H
+0012 D030             31             POP     30H
+0014 22               32             RET
+                      33     
+                      34     ;延时10ms用于按键去抖 
+0015                  35     DELAY10MS:   
+0015 C030             36             PUSH    30H
+0017 C031             37             PUSH    31H
+0019 7531D7           38         MOV         31H     ,       #0D7H
+001C                  39     DL0:
+001C 75302D           40         MOV         30H     ,       #2DH
+001F D530FD           41         DJNZ        30H     ,       $
+0022 D531F7           42         DJNZ        31H     ,       DL0
+0025 D031             43             POP     31H
+0027 D030             44             POP     30H
+0029 22               45         RET
+                      46     
+                      47     END
+A51 MACRO ASSEMBLER  DELAY                                                                02/10/2018 21:06:08 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

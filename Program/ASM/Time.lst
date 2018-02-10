@@ -1,0 +1,143 @@
+A51 MACRO ASSEMBLER  TIME                                                                 02/10/2018 21:06:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.00d
+OBJECT MODULE PLACED IN .\OutPut\Time.obj
+ASSEMBLER INVOKED BY: F:\keil3\C51\BIN\A51.EXE User\Time.asm NOMACRO INCDIR(.\Inc) SET(COMPACT) DEBUG PRINT(.\Time.lst) 
+                      OBJECT(.\OutPut\Time.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+                       2     
+                       3     
+                       4     
+                       5     
+                       6     
+                       7     
+                       8     
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+                      14     
+                      15     
+                      16     ;$include (Main.inc)
+  0030          +1    17     MODE    EQU             30H
+  0031          +1    18     COUNT   EQU             31H
+  0032          +1    19     TOCNT   EQU             32H
+                +1    20     
+  0000          +1    21     MODE2LOR        BIT     00H
+  0001          +1    22     AOD                     BIT             01H
+                      23     
+                      24     
+                      25     
+                      26     
+                      27     TIME_ASM        SEGMENT         CODE
+----                  28     RSEG            TIME_ASM
+                      29     
+                      30     PUBLIC TIME_INIT,TIME0_INTERRUPT
+                      31     
+                      32     
+                      33     
+                      34     
+                      35     
+                      36     
+                      37     
+0000                  38     TIME_INIT:
+0000 758901           39             MOV     TMOD,   #01H
+0003 758CFF           40         MOV         TH0     ,       #0FFH
+0006 758A48           41         MOV         TL0     ,       #48H
+0009 D2A9             42         SETB        ET0
+000B D2AF             43             SETB    EA
+                      44         ;SETB TR0
+000D 22               45         RET
+                      46     
+                      47     
+                      48     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54             
+000E                  55     TIME0_INTERRUPT:
+                      56             
+000E C0E0             57             PUSH    ACC
+A51 MACRO ASSEMBLER  TIME                                                                 02/10/2018 21:06:08 PAGE     2
+
+0010 C0D0             58             PUSH    PSW
+0012 758CFF           59         MOV         TH0     ,       #0FFH                           ;¼ÆÊÆ÷ÖÃÊ£»
+0015 758A48           60         MOV         TL0     ,       #48H
+0018 EC               61             MOV             A       ,       R4                                      ;±È¼Æ½Ïr4,r
+                             5Êä³ö0£¬È·¶¨pwmÕ¼¿Õ±È£»
+0019 B50502           62             CJNE    A       ,       05H     ,       R4R5DEF         ;Èç¹ûr4=r5£¬Êä³ö0£¬ÔÚr4Îª20
+                             µÄÊ±ºòÊä³ö1
+001C C2A0             63             CLR             P2.0                                            ;ÖÆÔìÖÜÆÚÎª10msµÄpw
+                             m£¬r5¿ØÖÆÕ¼¿Õ±È£»
+001E                  64     R4R5DEF:
+001E DC19             65             DJNZ    R4      ,       TIME0_RETURN            ;r4¼ÆÊ£¬Ã¿20¸öÖÐ¶Ï½øÈëÉèÖÃ£»
+0020                  66     T20:                                                                    ;Ã¿20´ÎÖÐ¶Ï 
+0020 7C14             67             MOV             R4      ,       #20                                     ;ÖØÖÃR4 
+0022 D2A0             68             SETB    P2.0                                            ;¸´Î»¶Ë¿Ú 
+                      69             
+0024 DE13             70             DJNZ    R6      ,       TIME0_RETURN            ;Ã¿£¨R7£©¸öÖÜÆÚr6±íÊ¾µ±Ç°ÖÜÆÚÊ 
+0026                  71     TR6:
+0026 AE07             72             MOV             R6      ,       07H                                     ;ÓÃR7ÖØÖÃR6
+0028 BD1402           73             CJNE    R5      ,       #20     ,       IFR5SAM0        ;¸Ä±äPWMÕ¼¿Õ±ÈµÄÔö¼õ 
+002B D201             74             SETB    AOD
+002D                  75     IFR5SAM0:       
+002D BD0002           76             CJNE    R5      ,       #00H    ,       R5DEF0  
+0030 C201             77             CLR             AOD
+0032                  78     R5DEF0: 
+0032 200103           79             JB              AOD     ,       DECR5
+0035 0D               80     INCR5:  INC             R5
+0036 8001             81                     SJMP    TIME0_RETURN
+0038 1D               82     DECR5:  DEC             R5
+                      83     
+0039                  84     TIME0_RETURN:
+0039 D0D0             85             POP             PSW
+003B D0E0             86             POP             ACC
+003D 32               87             RETI
+                      88     
+                      89     
+                      90     END
+A51 MACRO ASSEMBLER  TIME                                                                 02/10/2018 21:06:08 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+AOD. . . . . . . .  B ADDR   0020H.1 A   
+COUNT. . . . . . .  N NUMB   0031H   A   
+DECR5. . . . . . .  C ADDR   0038H   R   SEG=TIME_ASM
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+IFR5SAM0 . . . . .  C ADDR   002DH   R   SEG=TIME_ASM
+INCR5. . . . . . .  C ADDR   0035H   R   SEG=TIME_ASM
+MODE . . . . . . .  N NUMB   0030H   A   
+MODE2LOR . . . . .  B ADDR   0020H.0 A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+R4R5DEF. . . . . .  C ADDR   001EH   R   SEG=TIME_ASM
+R5DEF0 . . . . . .  C ADDR   0032H   R   SEG=TIME_ASM
+T20. . . . . . . .  C ADDR   0020H   R   SEG=TIME_ASM
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIME0_INTERRUPT. .  C ADDR   000EH   R   SEG=TIME_ASM
+TIME0_RETURN . . .  C ADDR   0039H   R   SEG=TIME_ASM
+TIME_ASM . . . . .  C SEG    003EH       REL=UNIT
+TIME_INIT. . . . .  C ADDR   0000H   R   SEG=TIME_ASM
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TOCNT. . . . . . .  N NUMB   0032H   A   
+TR6. . . . . . . .  C ADDR   0026H   R   SEG=TIME_ASM
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

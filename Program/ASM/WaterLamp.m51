@@ -1,15 +1,17 @@
-BL51 BANKED LINKER/LOCATER V6.05                                                        02/06/2018  17:29:10  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.05                                                        02/10/2018  21:06:20  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.05, INVOKED BY:
-F:\KEIL3\C51\BIN\BL51.EXE .\OutPut\Main.obj, .\OutPut\Delay.obj, .\OutPut\Key.obj TO .\OutPut\WaterLamp PRINT (.\WaterLa
->> mp.m51) RAMSIZE (256) CODE (0X0000-0X1FFF) XDATA (0X0000-0X01FD)
+F:\KEIL3\C51\BIN\BL51.EXE .\OutPut\Main.obj, .\OutPut\Delay.obj, .\OutPut\Time.obj, .\OutPut\Key.obj, .\OutPut\Led.obj T
+>> O .\OutPut\WaterLamp PRINT (.\WaterLamp.m51) RAMSIZE (256) CODE (0X0000-0X1FFF) XDATA (0X0000-0X01FD)
 
 
 INPUT MODULES INCLUDED:
   .\OutPut\Main.obj (MAIN)
   .\OutPut\Delay.obj (DELAY)
+  .\OutPut\Time.obj (TIME)
   .\OutPut\Key.obj (KEY)
+  .\OutPut\Led.obj (LED)
 
 
 LINK MAP OF MODULE:  .\OutPut\WaterLamp (MAIN)
@@ -22,10 +24,12 @@ LINK MAP OF MODULE:  .\OutPut\WaterLamp (MAIN)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0003H     ABSOLUTE     
-            CODE    0003H     003DH     UNIT         KEY_ASM
-            CODE    0040H     002AH     UNIT         MAIN_ASM
-            CODE    006AH     002AH     UNIT         DELAY_ASM
+            CODE    0000H     000EH     ABSOLUTE     
+            CODE    000EH     006AH     UNIT         KEY_ASM
+            CODE    0078H     003EH     UNIT         TIME_ASM
+            CODE    00B6H     0034H     UNIT         MAIN_ASM
+            CODE    00EAH     002AH     UNIT         DELAY_ASM
+            CODE    0114H     001FH     UNIT         LED_ASM
 
 
 
@@ -35,115 +39,242 @@ SYMBOL TABLE OF MODULE:  .\OutPut\WaterLamp (MAIN)
   ----------------------------------
 
   -------         MODULE        MAIN
-  C:0040H         SEGMENT       MAIN_ASM
-  C:004CH         SYMBOL        INIT
-  C:0042H         SYMBOL        LOOP
-  C:0040H         SYMBOL        MAIN
+  C:00B6H         SEGMENT       MAIN_ASM
+  B:0020H.1       SYMBOL        AOD
+  N:0031H         SYMBOL        COUNT
+  C:00CCH         SYMBOL        INIT
+  C:00B9H         SYMBOL        LOOP
+  C:00B6H         SYMBOL        MAIN
   N:0030H         SYMBOL        MODE
-  C:004AH         SYMBOL        OVER
+  B:0020H.0       SYMBOL        MODE2LOR
   D:00A0H         SYMBOL        P2
-  B:00D0H.3       SYMBOL        RS0
-  B:00D0H.4       SYMBOL        RS1
   D:0081H         SYMBOL        SP
-  C:0000H         LINE#         5
-  C:0040H         LINE#         12
-  C:0042H         LINE#         17
-  C:0045H         LINE#         18
-  C:0048H         LINE#         24
-  C:004AH         LINE#         27
-  C:004CH         LINE#         40
-  C:004FH         LINE#         41
-  C:0052H         LINE#         44
-  C:0054H         LINE#         45
-  C:0056H         LINE#         46
-  C:0058H         LINE#         47
-  C:0059H         LINE#         48
-  C:005AH         LINE#         51
-BL51 BANKED LINKER/LOCATER V6.05                                                      02/06/2018  17:29:10  PAGE 2
+  N:0032H         SYMBOL        TOCNT
+  C:0000H         LINE#         23
+  C:000BH         LINE#         25
+  C:00B6H         LINE#         38
+  C:00B9H         LINE#         40
+  C:00BCH         LINE#         41
+  C:00BFH         LINE#         42
+  C:00C2H         LINE#         43
+  C:00C5H         LINE#         44
+  C:00C8H         LINE#         45
+BL51 BANKED LINKER/LOCATER V6.05                                                      02/10/2018  21:06:20  PAGE 2
 
 
-  C:005CH         LINE#         52
-  C:005EH         LINE#         53
-  C:0060H         LINE#         54
-  C:0061H         LINE#         55
-  C:0062H         LINE#         58
-  C:0064H         LINE#         59
-  C:0066H         LINE#         63
-  C:0069H         LINE#         66
+  C:00CAH         LINE#         46
+  C:00CCH         LINE#         57
+  C:00CFH         LINE#         58
+  C:00D2H         LINE#         59
+  C:00D5H         LINE#         60
+  C:00D8H         LINE#         62
+  C:00DAH         LINE#         64
+  C:00DCH         LINE#         65
+  C:00DEH         LINE#         67
+  C:00E0H         LINE#         68
+  C:00E2H         LINE#         69
+  C:00E4H         LINE#         70
+  C:00E6H         LINE#         71
+  C:00E9H         LINE#         73
   -------         ENDMOD        MAIN
 
   -------         MODULE        DELAY
-  C:006AH         SEGMENT       DELAY_ASM
-  C:007FH         PUBLIC        DELAY10MS
-  C:006AH         PUBLIC        DELAY2MS
-  C:0086H         SYMBOL        DL0
-  C:0074H         SYMBOL        NEXT
-  C:006AH         LINE#         8
-  C:006CH         LINE#         9
-  C:006EH         LINE#         10
-  C:0071H         LINE#         11
-  C:0074H         LINE#         13
-  C:0077H         LINE#         14
-  C:007AH         LINE#         15
-  C:007CH         LINE#         16
-  C:007EH         LINE#         17
-  C:007FH         LINE#         21
-  C:0081H         LINE#         22
-  C:0083H         LINE#         23
-  C:0086H         LINE#         25
-  C:0089H         LINE#         26
-  C:008CH         LINE#         27
-  C:008FH         LINE#         28
-  C:0091H         LINE#         29
-  C:0093H         LINE#         30
+  C:00EAH         SEGMENT       DELAY_ASM
+  C:00FFH         PUBLIC        DELAY10MS
+  C:00EAH         PUBLIC        DELAY2MS
+  C:0106H         SYMBOL        DL0
+  C:00F4H         SYMBOL        NEXT
+  C:00EAH         LINE#         23
+  C:00ECH         LINE#         24
+  C:00EEH         LINE#         25
+  C:00F1H         LINE#         26
+  C:00F4H         LINE#         28
+  C:00F7H         LINE#         29
+  C:00FAH         LINE#         30
+  C:00FCH         LINE#         31
+  C:00FEH         LINE#         32
+  C:00FFH         LINE#         36
+  C:0101H         LINE#         37
+  C:0103H         LINE#         38
+  C:0106H         LINE#         40
+  C:0109H         LINE#         41
+  C:010CH         LINE#         42
+  C:010FH         LINE#         43
+  C:0111H         LINE#         44
+  C:0113H         LINE#         45
   -------         ENDMOD        DELAY
 
-  -------         MODULE        KEY
-  C:0003H         SEGMENT       KEY_ASM
-  C:0003H         PUBLIC        KEY
-  C:001BH         SYMBOL        CHANGE_MODE
-  C:0035H         SYMBOL        KEYUP
-  C:003FH         SYMBOL        KEY_RETURN
+  -------         MODULE        TIME
+  C:0078H         SEGMENT       TIME_ASM
+  C:0086H         PUBLIC        TIME0_INTERRUPT
+  C:0078H         PUBLIC        TIME_INIT
+  D:00E0H         SYMBOL        ACC
+  B:0020H.1       SYMBOL        AOD
+  N:0031H         SYMBOL        COUNT
+  C:00B0H         SYMBOL        DECR5
+  B:00A8H.7       SYMBOL        EA
+  B:00A8H.1       SYMBOL        ET0
+  C:00A5H         SYMBOL        IFR5SAM0
+  C:00ADH         SYMBOL        INCR5
   N:0030H         SYMBOL        MODE
-  C:001DH         SYMBOL        MODE1
-  C:0026H         SYMBOL        MODE2
-  C:002FH         SYMBOL        MODE3
+  B:0020H.0       SYMBOL        MODE2LOR
+  D:00A0H         SYMBOL        P2
+BL51 BANKED LINKER/LOCATER V6.05                                                      02/10/2018  21:06:20  PAGE 3
+
+
+  D:00D0H         SYMBOL        PSW
+  C:0096H         SYMBOL        R4R5DEF
+  C:00AAH         SYMBOL        R5DEF0
+  C:0098H         SYMBOL        T20
+  D:008CH         SYMBOL        TH0
+  C:00B1H         SYMBOL        TIME0_RETURN
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  N:0032H         SYMBOL        TOCNT
+  C:009EH         SYMBOL        TR6
+  C:0078H         LINE#         32
+  C:007BH         LINE#         33
+  C:007EH         LINE#         34
+  C:0081H         LINE#         35
+  C:0083H         LINE#         36
+  C:0085H         LINE#         38
+  C:0086H         LINE#         50
+  C:0088H         LINE#         51
+  C:008AH         LINE#         52
+  C:008DH         LINE#         53
+  C:0090H         LINE#         54
+  C:0091H         LINE#         55
+  C:0094H         LINE#         56
+  C:0096H         LINE#         58
+  C:0098H         LINE#         60
+  C:009AH         LINE#         61
+  C:009CH         LINE#         63
+  C:009EH         LINE#         65
+  C:00A0H         LINE#         66
+  C:00A3H         LINE#         67
+  C:00A5H         LINE#         69
+  C:00A8H         LINE#         70
+  C:00AAH         LINE#         72
+  C:00ADH         LINE#         73
+  C:00AEH         LINE#         74
+  C:00B0H         LINE#         75
+  C:00B1H         LINE#         78
+  C:00B3H         LINE#         79
+  C:00B5H         LINE#         80
+  -------         ENDMOD        TIME
+
+  -------         MODULE        KEY
+  C:000EH         SEGMENT       KEY_ASM
+  C:000EH         PUBLIC        KEY
+  B:0020H.1       SYMBOL        AOD
+  C:0049H         SYMBOL        CHANGE_MODE
+  N:0031H         SYMBOL        COUNT
+  C:0046H         SYMBOL        INCR5
+  C:006DH         SYMBOL        KEYUP
+  C:0077H         SYMBOL        KEY_RETURN
+  N:0030H         SYMBOL        MODE
+  C:004BH         SYMBOL        MODE1
+  C:0057H         SYMBOL        MODE2
+  B:0020H.0       SYMBOL        MODE2LOR
+  C:0063H         SYMBOL        MODE3
   D:0090H         SYMBOL        P1
-  B:00D0H.3       SYMBOL        RS0
-  B:00D0H.4       SYMBOL        RS1
-  C:0003H         LINE#         37
-  C:0005H         LINE#         38
-  C:0007H         LINE#         39
-  C:0009H         LINE#         40
-  C:000BH         LINE#         41
-  C:000DH         LINE#         43
-  C:000FH         LINE#         44
-  C:0011H         LINE#         45
-BL51 BANKED LINKER/LOCATER V6.05                                                      02/06/2018  17:29:10  PAGE 3
+  D:00A0H         SYMBOL        P2
+BL51 BANKED LINKER/LOCATER V6.05                                                      02/10/2018  21:06:20  PAGE 4
 
 
-  C:0013H         LINE#         46
-  C:0015H         LINE#         48
-  C:0018H         LINE#         50
-  C:001BH         LINE#         55
-  C:001DH         LINE#         59
-  C:0020H         LINE#         60
-  C:0022H         LINE#         61
-  C:0024H         LINE#         62
-  C:0026H         LINE#         65
-  C:0029H         LINE#         66
-  C:002BH         LINE#         67
-  C:002DH         LINE#         68
-  C:002FH         LINE#         71
-  C:0031H         LINE#         72
-  C:0033H         LINE#         73
-  C:0035H         LINE#         77
-  C:0037H         LINE#         78
-  C:0039H         LINE#         79
-  C:003BH         LINE#         80
-  C:003DH         LINE#         81
-  C:003FH         LINE#         83
+  C:0028H         SYMBOL        SAMEMODE1
+  C:0033H         SYMBOL        SAMEMODE2
+  C:003FH         SYMBOL        SAMEMODE3
+  N:0032H         SYMBOL        TOCNT
+  B:0088H.4       SYMBOL        TR0
+  C:000EH         LINE#         36
+  C:0010H         LINE#         37
+  C:0012H         LINE#         38
+  C:0014H         LINE#         39
+  C:0016H         LINE#         40
+  C:0018H         LINE#         42
+  C:001AH         LINE#         43
+  C:001CH         LINE#         44
+  C:001EH         LINE#         45
+  C:0020H         LINE#         47
+  C:0023H         LINE#         48
+  C:0025H         LINE#         50
+  C:0028H         LINE#         53
+  C:002BH         LINE#         54
+  C:002CH         LINE#         55
+  C:002DH         LINE#         56
+  C:002EH         LINE#         57
+  C:0031H         LINE#         58
+  C:0033H         LINE#         60
+  C:0036H         LINE#         61
+  C:0038H         LINE#         62
+  C:003AH         LINE#         63
+  C:003DH         LINE#         64
+  C:003FH         LINE#         67
+  C:0041H         LINE#         68
+  C:0044H         LINE#         69
+  C:0046H         LINE#         70
+  C:0047H         LINE#         71
+  C:0049H         LINE#         75
+  C:004BH         LINE#         78
+  C:004DH         LINE#         79
+  C:0050H         LINE#         80
+  C:0052H         LINE#         81
+  C:0055H         LINE#         82
+  C:0057H         LINE#         85
+  C:0059H         LINE#         86
+  C:005CH         LINE#         87
+  C:005EH         LINE#         88
+  C:0061H         LINE#         89
+  C:0063H         LINE#         92
+  C:0065H         LINE#         93
+  C:0067H         LINE#         94
+  C:0069H         LINE#         95
+  C:006BH         LINE#         96
+  C:006DH         LINE#         99
+  C:006FH         LINE#         100
+  C:0071H         LINE#         101
+  C:0073H         LINE#         102
+  C:0075H         LINE#         103
+  C:0077H         LINE#         105
   -------         ENDMOD        KEY
 
-Program Size: data=8.0 xdata=0 code=148
+BL51 BANKED LINKER/LOCATER V6.05                                                      02/10/2018  21:06:20  PAGE 5
+
+
+  -------         MODULE        LED
+  C:0114H         SEGMENT       LED_ASM
+  C:0114H         PUBLIC        LED
+  B:0020H.1       SYMBOL        AOD
+  N:0031H         SYMBOL        COUNT
+  C:0132H         SYMBOL        LEDRETURN
+  C:0124H         SYMBOL        MOD2L
+  C:012BH         SYMBOL        MOD2R
+  N:0030H         SYMBOL        MODE
+  C:0116H         SYMBOL        MODE1
+  C:011EH         SYMBOL        MODE2
+  B:0020H.0       SYMBOL        MODE2LOR
+  D:00A0H         SYMBOL        P2
+  N:0032H         SYMBOL        TOCNT
+  C:0114H         LINE#         30
+  C:0116H         LINE#         33
+  C:0119H         LINE#         34
+  C:011AH         LINE#         35
+  C:011CH         LINE#         36
+  C:011EH         LINE#         38
+  C:0121H         LINE#         39
+  C:0124H         LINE#         40
+  C:0125H         LINE#         41
+  C:0126H         LINE#         42
+  C:0127H         LINE#         43
+  C:0129H         LINE#         44
+  C:012BH         LINE#         45
+  C:012CH         LINE#         46
+  C:012DH         LINE#         47
+  C:012EH         LINE#         48
+  C:0130H         LINE#         49
+  C:0132H         LINE#         52
+  -------         ENDMOD        LED
+
+Program Size: data=8.0 xdata=0 code=307
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

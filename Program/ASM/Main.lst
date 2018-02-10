@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  MAIN                                                                 02/06/2018 17:29:10 PAGE     1
+A51 MACRO ASSEMBLER  MAIN                                                                 02/10/2018 21:06:07 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.00d
@@ -8,114 +8,124 @@ ASSEMBLER INVOKED BY: F:\keil3\C51\BIN\A51.EXE User\Main.asm NOMACRO INCDIR(.\In
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     ;$include (Main.inc)
-                +1     2     
-                +1     3     
-  0030          +1     4     MODE    EQU             30H
+                       1     
+                       2     
+                       3     
+                       4     
                        5     
-                       6     ;$include (Delay.inc)
-                +1     7     EXTRN CODE (DELAY10MS)
-                +1     8     EXTRN CODE (DELAY2MS)
+                       6     
+                       7     
+                       8     
                        9     
-                      10     ;$include (Key.inc)
-                +1    11     EXTRN CODE (KEY)
+                      10     
+                      11     
                       12     
-0000                  13     ORG 00H
-0000 020000   F       14     LJMP    MAIN
-                      15     
-                      16     MAIN_ASM        SEGMENT         CODE
-----                  17     RSEG            MAIN_ASM
-                      18     
-0000                  19     MAIN:   
-                      20             
-0000 1100     F       21             ACALL   INIT                ;³õÊ¼»¯³ÌÐò     
-                      22                             
-                      23                                                                                                
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                                                                                        
-                                                             
-                      24                     
-0002                  25     LOOP:   
-0002 120000   F       26                     LCALL   KEY     
-0005 120000   F       27                     LCALL   DELAY2MS
-                      28                     
-                      29                     
-                      30                     
-                      31     
-                      32                     
-0008 80F8             33                     SJMP    LOOP
-000A                  34     OVER:   
-                      35                     
-000A 80FE             36                     SJMP    OVER            
-                      37                     
+                      13     
+                      14     
+                      15     ;$include (Main.inc)
+  0030          +1    16     MODE    EQU             30H
+  0031          +1    17     COUNT   EQU             31H
+  0032          +1    18     TOCNT   EQU             32H
+                +1    19     
+  0000          +1    20     MODE2LOR        BIT     00H
+  0001          +1    21     AOD                     BIT             01H
+                      22     
+                      23     ;$include (Delay.inc)
+                +1    24     EXTRN CODE (DELAY10MS)
+                +1    25     EXTRN CODE (DELAY2MS)
+                      26     
+                      27     ;$include (Key.inc)
+                +1    28     EXTRN CODE (KEY)
+                      29     
+                      30     ;$include (Led.inc)
+                +1    31     EXTRN CODE (LED)
+                      32     
+                      33     ;$include (Time.inc)
+                +1    34     EXTRN CODE (TIME_INIT)
+                +1    35     EXTRN CODE (TIME0_INTERRUPT)
+                +1    36     
+                      37     
                       38     
                       39     
-                      40     
-                      41     
-A51 MACRO ASSEMBLER  MAIN                                                                 02/06/2018 17:29:10 PAGE     2
-
-                      42     
-                      43     
-                      44     
-                      45                     
-                      46                     
+0000                  40     ORG 00H
+0000 020000   F       41     LJMP    MAIN
+000B                  42     ORG 0BH
+000B 020000   F       43     LJMP    TIME0_INTERRUPT
+                      44     ;·ÖÅä³ÌÐò¿Õ¼ä 
+                      45     MAIN_ASM        SEGMENT         CODE
+----                  46     RSEG            MAIN_ASM
                       47                     
-000C                  48     INIT:   
-000C 856081           49                     MOV             SP      ,       60H                     ;¶ÑÕ»ÇøÉèÖÃÎª0X60-0
-                             X7F
-000F 850030           50                     MOV             MODE,   00H                     ;MODE³õÊ¼ÖµÎª0
-                      51                     
-                      52                     ;ÉÁË¸µÆ³õÊ¼»¯
-0012 C2D3             53                     CLR             RS0                                     ;ÉèÖÃµÚ0¹¤×÷Çø
-0014 C2D4             54                     CLR             RS1
-0016 7B01             55                     MOV             R3      ,       #01H            ;ÉÁË¸µÆ³õÊ¼»¯µÚÒ»¸öµÆÉÁ
-0018 EB               56                     MOV             A       ,       R3
-0019 FA               57                     MOV             R2      ,       A                       ;½«³õÊ¼»¯Öµ·ÅÈë¼ÆÊÖ
-                             µ
-                      58                     
-                      59                     ;Á÷Ë®µÆ³õÊ¼»¯
-001A C2D3             60                     CLR             RS0                                     ;ÉèÖÃµÚ1¹¤×÷Çø
-001C D2D4             61                     SETB    RS1
-001E ABFA             62                     MOV             R3      ,       250                     ;ÉÁË¸µÆ³õÊ¼»¯Ã¿250´
-                             Î¸Ä±ä×´Ì¬
-0020 EB               63                     MOV             A       ,       R3
-0021 FA               64                     MOV             R2      ,       A                       ;½«³õÊ¼»¯Öµ·ÅÈë¼ÆÊÖ
-                             µ
-                      65                     
-                      66                     
-0022 C2D3             67                     CLR             RS0                                     ;³õÊ¼»¯ÎªµÚ0¹¤×÷Çø
-0024 C2D4             68                     CLR             RS1
-                      69                     
-                      70                     
-                      71                     
-0026 75A000           72                     MOV     P2      ,       #00H            ;Ï¨ÃðµÆ£»
-                      73                     
-                      74                     
-0029 22               75                     RET
-                      76                     
-                      77                                     
-                      78                     
-                      79                     
-                      80                     
-                      81                     
-                      82     END
+                      48                     
+                      49     
+                      50     
+                      51     
+                      52     
+                      53     
+                      54     
+0000                  55     MAIN:   
+0000 120000   F       56                 LCALL       INIT                ;³õÊ¼»¯³ÌÐò                                    
+                                                                                                                        
+A51 MACRO ASSEMBLER  MAIN                                                                 02/10/2018 21:06:07 PAGE     2
+
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                     
+0003                  57     LOOP:   
+0003 120000   F       58                     LCALL   KEY                                     ;¼ì²â°´¼ü 
+0006 120000   F       59                     LCALL   DELAY2MS                        ;ÑÓÊ±2ºÁÃë 
+0009 D531F7           60                     DJNZ    COUNT   ,       LOOP    ;COUNT¼ÆÊ£¬Ã¿250´Î¸Ä±ä×´Ì¬ 
+000C 7531FA           61                     MOV             COUNT   ,       #0FAH   ;ÖØÐÂ¸øCOUNT¸³Öµ£¬¸Ä±äÕâ¸öºÍinitÖÐµ
+                             Ä³õÖµ¿ÉÒÔ¸Ä±äÄ£Ê½1ºÍ2µÄÆµÂÊ 
+000F 120000   F       62                     LCALL   LED                                     ;Ä£Ê½1¡¢2¸Ä±ä×´Ì¬ 
+0012 80EF             63                     SJMP    LOOP                            ;Ñ­»· 
+0014 80FE             64                     SJMP    $                                       ;ËÀÑ­»· 
+                      65             
+                      66             
+                      67     
+                      68     
+                      69     
+                      70     
+                      71     
+                      72     
+                      73     
+0016                  74     INIT:   
+0016 758160           75                     MOV             SP      ,       #60H            ;¶ÑÕ»ÇøÉèÖÃÎª0X60-0X7F
+0019 753001           76                     MOV             MODE,   #01H            ;MODE³õÊ¼ÖµÎª0
+001C 7531FA           77                     MOV             COUNT,  #0FAH           ;¼ÆÊÖµ³õÊ¼»¯Îª250
+001F 75A000           78                     MOV     P2      ,       #00H            ;Ï¨ÃðµÆ£»
+                      79                     ;ÉÁË¸µÆ³õÊ¼»¯£»
+0022 7B01             80                     MOV             R3      ,       #01H            ;ÉÁË¸µÆ³õÊ¼»¯µÚÒ»¸öµÆÉÁ£»
+                      81                     ;Á÷Ë®µÆ³õÊ¼»¯£» 
+0024 7A01             82                     MOV             R2      ,       #01H            ;Á÷Ë®µÆÉèÖÃÎªµÚÒ»¸öµÆÁÁ£»
+0026 C200             83                     CLR             MODE2LOR                        ;½«Á÷Ë®µÆÉèÖÃÎª×óÒÆ£»
+                      84                     ;ºôÎüµÆ³õÊ¼»¯£»
+0028 7C14             85                     MOV             R4      ,       #20                     ;pwmÒÔ20¸öÖÐ¶ÏÎªÖÜÆ
+                             Ú 
+002A 7D00             86                     MOV             R5      ,       #0                      ;³õÊ¼»¯Õ¼¿Õ±ÈÎª100 
+002C 7E03             87                     MOV             R6      ,       #03H            ;
+002E 7F03             88                     MOV             R7      ,       #03H            ;ºôÎüµÆÆµÂÊ 
+0030 120000   F       89                     LCALL   TIME_INIT
+                      90     
+0033 22               91                     RET
+                      92     
+                      93                     
+                      94     END
                              
                              
                              
-A51 MACRO ASSEMBLER  MAIN                                                                 02/06/2018 17:29:10 PAGE     3
+A51 MACRO ASSEMBLER  MAIN                                                                 02/10/2018 21:06:07 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -123,19 +133,23 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
+AOD. . . . . . . .  B ADDR   0020H.1 A   
+COUNT. . . . . . .  N NUMB   0031H   A   
 DELAY10MS. . . . .  C ADDR   -----       EXT
 DELAY2MS . . . . .  C ADDR   -----       EXT
-INIT . . . . . . .  C ADDR   000CH   R   SEG=MAIN_ASM
+INIT . . . . . . .  C ADDR   0016H   R   SEG=MAIN_ASM
 KEY. . . . . . . .  C ADDR   -----       EXT
-LOOP . . . . . . .  C ADDR   0002H   R   SEG=MAIN_ASM
+LED. . . . . . . .  C ADDR   -----       EXT
+LOOP . . . . . . .  C ADDR   0003H   R   SEG=MAIN_ASM
 MAIN . . . . . . .  C ADDR   0000H   R   SEG=MAIN_ASM
-MAIN_ASM . . . . .  C SEG    002AH       REL=UNIT
+MAIN_ASM . . . . .  C SEG    0034H       REL=UNIT
 MODE . . . . . . .  N NUMB   0030H   A   
-OVER . . . . . . .  C ADDR   000AH   R   SEG=MAIN_ASM
+MODE2LOR . . . . .  B ADDR   0020H.0 A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
-RS0. . . . . . . .  B ADDR   00D0H.3 A   
-RS1. . . . . . . .  B ADDR   00D0H.4 A   
 SP . . . . . . . .  D ADDR   0081H   A   
+TIME0_INTERRUPT. .  C ADDR   -----       EXT
+TIME_INIT. . . . .  C ADDR   -----       EXT
+TOCNT. . . . . . .  N NUMB   0032H   A   
 
 
 REGISTER BANK(S) USED: 0 

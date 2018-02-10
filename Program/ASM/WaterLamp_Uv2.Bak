@@ -10,9 +10,13 @@ Group (Text)
 
 File 1,2,<.\User\Main.asm><Main.asm>
 File 1,2,<.\User\Delay.asm><Delay.asm>
-File 1,2,<.\App\Key.asm><Key.asm>
+File 1,2,<.\User\Time.asm><Time.asm>
+File 2,2,<.\App\Key.asm><Key.asm>
+File 2,2,<.\App\Led.asm><Led.asm>
 File 3,5,<.\Inc\Delay.inc><Delay.inc>
 File 3,5,<.\Inc\Main.inc><Main.inc>
+File 3,5,<.\Inc\Led.inc><Led.inc>
+File 3,5,<.\Inc\Key.inc><Key.inc>
 
 
 Options 1,0,0  // Target 'WaterLamp'
@@ -108,8 +112,8 @@ Options 1,0,0  // Target 'WaterLamp'
  LX51UCL ()
  LX51CSC ()
  LX51UCS ()
- LX51COB (0X0000-0X1FFF)
- LX51XDB (0X0000-0X01FD)
+ LX51COB ()
+ LX51XDB (0X00FF-0X01FD)
  LX51PDB ()
  LX51BIB ()
  LX51DAB ()
@@ -122,7 +126,7 @@ Options 1,0,0  // Target 'WaterLamp'
  LX51DAS ()
  LX51IDS ()
   OPTDL (S8051.DLL)()(DP51.DLL)(-p51)(S8051.DLL)()(TP51.DLL)(-p51)
-  OPTDBG 48125,9,()()()()()()()()()() (BIN\VDM51.DLL)()()()
+  OPTDBG 49150,9,()()()()()()()()()() (BIN\VDM51.DLL)()()()
  FLASH1 { 1,0,0,0,0,0,0,0,255,255,255,255,0,0,0,0,0,0,0,0 }
  FLASH2 ()
  FLASH3 ("" ())
